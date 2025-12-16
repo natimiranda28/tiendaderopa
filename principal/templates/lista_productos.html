@@ -1,23 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Catálogo de Productos</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 </head>
 <body>
     <h1>Catálogo de Productos</h1>
-    <ul>
+    <div class="catalogo">
         {% for producto in productos %}
-            <li>
+            <div class="card">
                 <strong>{{ producto.nombre }}</strong> - ${{ producto.precio }} <br>
                 {{ producto.descripcion }} <br>
                 {% if producto.imagen %}
                     <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" width="150">
                 {% endif %}
-            </li>
+                <br>
+                <!-- Botón para agregar al carrito -->
+                <a href="{% url 'agregar_al_carrito' producto.id %}" class="btn-carrito">🛒 Agregar al carrito</a>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 </body>
 </html>
+

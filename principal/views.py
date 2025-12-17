@@ -16,3 +16,16 @@ def ver_carrito(request):
         "carrito_items": carrito_items,
         "total": total
     })
+
+@login_required
+def checkout(request):
+    carrito_items = Carrito.objects.filter(usuario=request.user)
+    total = sum(item.producto.precio * item.cantidad for item in carrito_items)
+
+    if request.method == "POST":
+        # Aquí podrías crear una "Orden" en la base de datos
+        # Por ahora simulamos la compra
+        carrito_items.delete()  # vaciamos el carrito
+        return render(request, "checkout.html", {"total": total, "success": True})
+
+    return render(request, "checkout.html", {"total": total})

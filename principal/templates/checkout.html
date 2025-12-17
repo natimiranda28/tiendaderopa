@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    {% if success %}
+        <p>✅ Compra realizada con éxito. Total: ${{ total }}</p>
+    {% else %}
+        <p>Total a pagar: ${{ total }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirmar compra</button>
+        </form>
+    {% endif %}
+</body>
+</html>
